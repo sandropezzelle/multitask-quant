@@ -94,17 +94,17 @@ if __name__ == '__main__':
     data_path = sys.argv[2]
     tr_inds, v_inds, t_inds = read_indices(repository_path)
     ratios = utils.read_qprobs(repository_path)
-    tr_size = 100
-    v_size = 100
+    tr_size = 11900
+    v_size = 1700
     create_ratio_dict(ratios)
     tr_inp, tr_m_out, tr_q_out, tr_r_out = read_images(tr_inds, tr_size)
     v_inp, v_m_out, v_q_out, v_r_out = read_images(v_inds, v_size)
     learning_rate = 0.02
-    nb_epochs = 1
+    nb_epochs = 100
     b_size = 85
     m = complete_model.MultitaskInc()
     model = m.build()
-    filepath = "best_model/weight.new.hdf5"
+    filepath = "best_model/weight.best.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'val_loss', verbose = 1, save_best_only = True, mode = 'min')
     callback_list = [checkpoint]
     hist = model.fit(tr_inp, [tr_m_out, tr_q_out, tr_r_out], batch_size = b_size, epochs = nb_epochs, validation_data = (v_inp, [v_m_out, v_q_out, v_r_out]), callbacks = callback_list)

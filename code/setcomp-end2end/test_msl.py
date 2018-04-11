@@ -99,7 +99,6 @@ if __name__ == '__main__':
     create_ratio_dict(ratios)
     t_inp, t_m_out = read_images(t_inds, t_size)
     learning_rate = 0.02
-    nb_epochs = 100
     b_size = 85
     m = msl_model.MslInc()
     model = m.build()

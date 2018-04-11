@@ -104,7 +104,7 @@ if __name__ == '__main__':
     b_size = 85
     m = msl_model.MslInc()
     model = m.build()
-    filepath = "best_model/weight.new.hdf5"
+    filepath = "best_model/weight.best.hdf5"
     checkpoint = ModelCheckpoint(filepath, monitor = 'val_loss', verbose = 1, save_best_only = True, mode = 'min')
     callback_list = [checkpoint]
     hist = model.fit(tr_inp, tr_m_out, batch_size = b_size, epochs = nb_epochs, validation_data = (v_inp, v_m_out), callbacks = callback_list)

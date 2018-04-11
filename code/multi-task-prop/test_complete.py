@@ -94,15 +94,14 @@ if __name__ == '__main__':
     data_path = sys.argv[2]
     tr_inds, v_inds, t_inds = read_indices(repository_path)
     ratios = utils.read_qprobs(repository_path)
-    t_size = 100
+    t_size = 3400
     create_ratio_dict(ratios)
     t_inp, t_m_out, t_q_out, t_r_out = read_images(t_inds, t_size)
     learning_rate = 0.02
-    nb_epochs = 1
     b_size = 85
     m = complete_model.MultitaskInc()
     model = m.build()
-    filepath = "best_model/weight.new.hdf5"
+    filepath = "best_model/weight.best.hdf5"
     model.load_weights(filepath)
     preds = model.predict(t_inp, batch_size = b_size)
     print model.evaluate(t_inp, [t_m_out, t_q_out, t_r_out], batch_size = b_size)
