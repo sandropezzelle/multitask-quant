@@ -8,4 +8,4 @@ python train_setcomp.py "data path"
 where "data path" is the path containing the .txt files with the frozen vectors
 
 For testing a pretrained model, you need to create the folder "best_model" in the current directory, copy the pretrained model
-as "weight.best.hdf5" and you run python test_setcomp.py "data path"
+as "weight.best.hdf5" and you run: python test_setcomp.py "data path"
