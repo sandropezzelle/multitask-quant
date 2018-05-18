@@ -7,6 +7,12 @@ import quant_model
 import keras
 from keras.callbacks import ModelCheckpoint
 
+"""
+uncomment this line above for saving
+the predictions for the vagueQ task 
+
+"""
+#output = open('vagueq_predictions.txt', 'w')
 
 full_images = {}
 ratios = {}
@@ -62,7 +68,7 @@ def read_images(links, size):
             else:
                 ratio_val = 1.0
         else:
-            ratio_val = float(cat[0]) / float(cat[1])
+            ratio_val = float(cat[0]) / (float(cat[0]) + float(cat[1]))
         if ratio_val < 0.5:
             m_out[count][0] = 1.0
         if ratio_val == 0.5:
@@ -106,3 +112,19 @@ if __name__ == '__main__':
     model.load_weights(filepath)
     preds = model.predict(t_inp, batch_size = b_size)
     print model.evaluate(t_inp, t_q_out, batch_size = b_size)
+
+    """
+    uncomment this line above for saving
+    the predictions for the vagueQ task 
+
+    """
+    """
+    for i in range(t_size):
+       for j in range(9):
+          output.write(str(preds[i][j]) + '\t')
+       output.write('\n')
+
+       for j in range(9):
+          output.write(str(t_q_out[i][j]) + '\t')
+       output.write('\n')
+    """

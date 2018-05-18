@@ -13,8 +13,17 @@ from sklearn.metrics import confusion_matrix
 from keras import utils as np_utils
 
 """
+uncomment this line above for saving
+the predictions for the vagueQ task 
+
+"""
+#output = open('vagueq_predictions.txt', 'w')
+
+
+"""
 probability distributions for each ratio relative to each quantifier
 quantifiers: none,almost_none,the_smaller_part,few,some,many,most,almost_all,all
+
 """
 ratio0Y=[0.9765886288,0.0050167224,0,0.0033444816,0.0100334448,0,0,0,0.0050167224]
 ratio19=[0.0051020408,0.5595238095,0.1139455782,0.2823129252,0.0238095238,0,0.0017006803,0.0136054422,0]
@@ -108,19 +117,21 @@ if __name__ == '__main__':
     print("%s: %.4f%%" % (model.metrics_names[1], scores[1]*100))
 
     probabilities = model.predict(x_test, batch_size=batch_size)
-    #print(probabilities)
+
 
     """
-    # comment out this code to print
-    # the predicted probabilities
-    # in a .txt file
+    uncomment this line above for saving
+    the predictions for the vagueQ task 
 
-    output = 'predicted_probabilities.txt'
-    for i in range(1411):
+    """
+    """
+    for i in range(t_size):
        for j in range(9):
           output.write(str(probabilities[i][j]) + '\t')
        output.write('\n')
 
        for j in range(9):
           output.write(str(y_test[i][j]) + '\t')
+       output.write('\n')
     """
+

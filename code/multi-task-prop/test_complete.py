@@ -13,6 +13,14 @@ ratios = {}
 r_dict = {}
 data_path = ''
 
+"""
+uncomment this line above for saving
+the predictions for the vagueQ task 
+
+"""
+#output = open('vagueq_predictions.txt', 'w')
+
+
 def read_ind_files(path):
     """
     reads the indices of the images for a given file
@@ -104,3 +112,24 @@ if __name__ == '__main__':
     model.load_weights(filepath)
     preds = model.predict(t_inp, batch_size = b_size)
     print model.evaluate(t_inp, [t_m_out, t_q_out, t_r_out], batch_size = b_size)
+
+    """
+    uncomment this line above for saving
+    the predictions for the vagueQ task 
+
+    """
+    """
+    pred1 = preds[1]
+    for i in range(t_size):
+       for j in range(9):
+          output.write(str(pred1[i][j]) + '\t')
+       output.write('\n')
+
+       for j in range(9):
+          output.write(str(t_q_out[i][j]) + '\t')
+       output.write('\n')
+    """
+
+
+
+

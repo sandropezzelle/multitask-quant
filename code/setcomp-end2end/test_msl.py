@@ -12,6 +12,7 @@ ratios = {}
 r_dict = {}
 data_path = ''
 
+
 def read_ind_files(path):
     """
     reads the indices of the images for a given file
@@ -105,3 +106,4 @@ if __name__ == '__main__':
     model.load_weights(filepath)
     preds = model.predict(t_inp, batch_size = b_size)
     print model.evaluate(t_inp, t_m_out, batch_size = b_size)
+
