@@ -61,7 +61,7 @@ def read_images(links, size):
             else:
                 ratio_val = 1.0
         else:
-            ratio_val = float(cat[0]) / float(cat[1])
+            ratio_val = float(cat[0]) / (float(cat[1]) + float(cat[0]))
         if ratio_val < 0.5:
             m_out[count][0] = 1.0
         if ratio_val == 0.5:
@@ -98,7 +98,6 @@ if __name__ == '__main__':
     t_size = 3400
     create_ratio_dict(ratios)
     t_inp, t_m_out = read_images(t_inds, t_size)
-    learning_rate = 0.02
     b_size = 85
     m = msl_model.MslInc()
     model = m.build()

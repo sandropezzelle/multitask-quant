@@ -2,7 +2,7 @@ import keras
 from keras.models import Model
 from keras import layers
 from keras.layers import Input, Dense, Flatten, merge, Dropout
-from keras.optimizers import Adam, Adadelta, Nadam
+from keras.optimizers import Adam, Adadelta, Nadam, SGD
 from keras.applications.inception_v3 import InceptionV3
 from keras.layers.wrappers import TimeDistributed
 from keras.layers.pooling import GlobalAveragePooling2D
@@ -14,7 +14,7 @@ from keras import backend as K
 from keras.regularizers import l2
 
 class MultitaskInc:
-    def __init__(self, input_shape = (203,203, 3), act_f = "relu", batch_size = 100):
+    def __init__(self, input_shape = (203,203,3), act_f = "relu", batch_size = 100):
         """
         intialization of hyperparameters
         """
@@ -81,10 +81,11 @@ class MultitaskInc:
         drop_hidden_quant = Dropout(self.dropout)(hidden_quant)
         out_quant = Dense(self.q_classes, activation = 'softmax', name = 'pred2')(drop_hidden_quant)
 
-        card_flat = Flatten()(drop_l_td_dense6)
-        hidden_card = Dense(32, W_regularizer = l2(self.l2reg), activation = 'relu', name = 'card')(card_flat)
-        drop_hidden_card = Dropout(self.dropout)(hidden_card)
-        out_card = Dense(self.num_classes,  activation = 'softmax', name = 'pred3')(drop_hidden_card)
-        model = Model(input = inp, output = [out_more, out_quant, out_card])
+        prop_flat = Flatten()(drop_l_td_dense6)
+        hidden_prop = Dense(32, W_regularizer = l2(self.l2reg), activation = 'relu', name = 'prop')(prop_flat)
+        drop_hidden_prop = Dropout(self.dropout)(hidden_prop)
+        out_prop = Dense(self.num_classes,  activation = 'softmax', name = 'pred3')(drop_hidden_prop)
+        model = Model(input = inp, output = [out_more, out_quant, out_prop])
+        sgd = SGD(lr = 0.05)
         model.compile(loss = 'categorical_crossentropy', optimizer = 'sgd', metrics = ['accuracy'])
         return model

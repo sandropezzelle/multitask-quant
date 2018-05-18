@@ -2,7 +2,7 @@ import keras
 from keras.models import Model
 from keras import layers
 from keras.layers import Input, Dense, Flatten, merge, Dropout
-from keras.optimizers import Adam, Adadelta, Nadam
+from keras.optimizers import Adam, Adadelta, Nadam, SGD
 from keras.applications.inception_v3 import InceptionV3
 from keras.layers.wrappers import TimeDistributed
 from keras.layers.pooling import GlobalAveragePooling2D

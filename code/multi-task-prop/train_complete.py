@@ -54,7 +54,6 @@ def read_images(links, size):
         cat = link.strip().split('/')[-2][-2:]
         for i in range(9):
             q_out[count][i] = ratios[cat][str(i)]
-#            print out[count]
         r_out[count][r_dict[cat]] = 1.0
         if cat[1] == 'Y' or cat[0] == 'X':
             if cat[1] == 'Y':
@@ -62,7 +61,7 @@ def read_images(links, size):
             else:
                 ratio_val = 1.0
         else:
-            ratio_val = float(cat[0]) / float(cat[1])
+            ratio_val = float(cat[0]) / (float(cat[1]) + float(cat[0]))
         if ratio_val < 0.5:
             m_out[count][0] = 1.0
         if ratio_val == 0.5:
@@ -99,7 +98,6 @@ if __name__ == '__main__':
     create_ratio_dict(ratios)
     tr_inp, tr_m_out, tr_q_out, tr_r_out = read_images(tr_inds, tr_size)
     v_inp, v_m_out, v_q_out, v_r_out = read_images(v_inds, v_size)
-    learning_rate = 0.02
     nb_epochs = 100
     b_size = 85
     m = complete_model.MultitaskInc()
